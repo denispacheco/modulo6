@@ -10,31 +10,35 @@ var fs   = require('fs');
 http.createServer(function (request, response) {
     let q= url.parse(request.url,true);
     if (q.pathname=="/datos"){
-        //OK        
-        response.writeHead(200, {'Content-Type': 'text/plain'});
+        //OK    -- está hecho de manera síncrona            
+        /*response.writeHead(200, {'Content-Type': 'text/html'});
+        let datos=fs.readFileSync('clase_3/exito.html');                
+        response.write(datos.toString());
+        response.end();*/
+        response.writeHead(200, {'Content-Type': 'text/html'});
         fs.readFile('clase_3/exito.html',function(err,data){
             if(err){
                 console.log(err.message)
-            }else{
-                console.log(data.toString());
-                texto=data.toString();     
-                //console.log(response)           ;
-                response.write(data.toString());
+            }else{             
+                response.write(data.toString());                
             }
+            response.end();
         })
     }else{
-        //ERROR
-        response.writeHead(404, {'Content-Type': 'text/plain'});
+        //ERROR  --está hecho de maner asincrona
+        response.writeHead(404, {'Content-Type': 'text/html'});
         fs.readFile('clase_3/error.html',function(err,data){
             if(err){
                 console.log(err.message)
             }else{
-                console.log(data.toString())
-                response.write(data.toString());
+                //console.log(data.toString())
+                response.write(data.toString());                
             }
+            response.end();
         })
+        //
     }  
-  response.end();
+ 
 }).listen(8090);
 
 console.log('servidor escuchando peticiones en el puerto 8090');
