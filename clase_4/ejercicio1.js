@@ -8,6 +8,7 @@
 var http        = require('http');
 var url         = require('url');
 var nodemailer  = require('nodemailer');
+require('dotenv').config();
 
 var alimentos="";
 
@@ -16,7 +17,7 @@ var transporter = nodemailer.createTransport({
     service : 'gmail',
     auth : {
         user : 'pachinx@gmail.com', //poner sus correos
-        pass : 'pqnnlrkskntabdlv' //cambiar esto al de uds.
+        pass : process.env.PASSWORD //cambiar esto al de uds.
     }
 });
 
