@@ -63,38 +63,48 @@
 // })
 
 
-var http=require('http');
-var url=require("url");
-var fs=require("fs");
+// var http=require('http');
+// var url=require("url");
+// var fs=require("fs");
+
+// var http = require('http');
+// http.createServer(function (request, response) {
+//   var q= url.parse(request.url,true);
+//   //console.log(request.url);  
+//   console.log(q.pathname);
+//   //console.log(q.query);
+//   if(q.pathname!="/"){
+//     response.end();
+//     return;
+//   }
+
+//   var datos=q.query;
+//   var usuario={
+//     rut:datos.rut,
+//     nombre:datos.nombre,
+//     apellido:datos.apellido
+//   }
+//   response.writeHead(200, {'Content-Type': 'application/json'});  
+//   //console.table(datos);
+//   fs.writeFile(datos.rut+".txt",JSON.stringify(usuario),function(err){
+//     if(err){
+//       console.log(err.message);
+//     }else{
+//       console.log("archivo creado");      
+//     }
+//   })
+//   response.write(JSON.stringify(usuario))
+//   response.end();
+// }).listen(8091);
+
+// console.log('Server running at http://127.0.0.1:8081/');
 
 var http = require('http');
+require('dotenv').config();
 http.createServer(function (request, response) {
-  var q= url.parse(request.url,true);
-  //console.log(request.url);  
-  console.log(q.pathname);
-  //console.log(q.query);
-  if(q.pathname!="/"){
-    response.end();
-    return;
-  }
+  response.writeHead(200, {'Content-Type': 'text/plain'});
+  response.end('Hello World');
+}).listen(process.env.PUERTO);
 
-  var datos=q.query;
-  var usuario={
-    rut:datos.rut,
-    nombre:datos.nombre,
-    apellido:datos.apellido
-  }
-  response.writeHead(200, {'Content-Type': 'application/json'});  
-  //console.table(datos);
-  fs.writeFile(datos.rut+".txt",JSON.stringify(usuario),function(err){
-    if(err){
-      console.log(err.message);
-    }else{
-      console.log("archivo creado");      
-    }
-  })
-  response.write(JSON.stringify(usuario))
-  response.end();
-}).listen(8091);
+console.log('Server running at '+process.env.PUERTO);
 
-console.log('Server running at http://127.0.0.1:8081/');
