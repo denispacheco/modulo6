@@ -99,12 +99,41 @@
 
 // console.log('Server running at http://127.0.0.1:8081/');
 
-var http = require('http');
-require('dotenv').config();
-http.createServer(function (request, response) {
-  response.writeHead(200, {'Content-Type': 'text/plain'});
-  response.end('Hello World');
-}).listen(process.env.PUERTO);
+// var http = require('http');
+// require('dotenv').config();
+// var puerto=process.env.PUERTO || 8081
+// http.createServer(function (request, response) {
+//   response.writeHead(200, {'Content-Type': 'text/plain'});
+//   response.end('Hello World');
+// }).listen(puerto);
 
-console.log('Server running at '+process.env.PUERTO);
+// console.log('Server running at '+ puerto);
 
+
+//const child_process=require("child_process");
+
+// child_process.exec('node http.js',function(err,stdout,stderr){
+//   if(!err){
+//     console.log("stdout" + stdout);
+//   }else{
+//     console.log("error");
+//   }
+// });
+
+// child_process.exec('ls -lh', (error, stdout, stderr) => {
+//   if (!error) {
+//     console.log("salida:\n" + stdout);
+//   }
+// });
+
+
+//const child_process=require("child_process");
+//console.log(process.argv.slice(2));
+const child_process=require("child_process");
+child_process.exec('node fs.js',function(err,stdout,stderr){
+    if(!err){
+      console.log("stdout" + stdout);
+    }else{
+      console.log("error");
+    }
+  });

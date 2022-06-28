@@ -1,6 +1,6 @@
 //carga del módulo http
 var http=require('http');
-
+console.log("iniciando servidor");
 //request:peticion que llega desde el cliente (navegador)
 //response:la respuesta que envío desde el server al cliente
 http.createServer(function(request,response){
