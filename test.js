@@ -129,11 +129,101 @@
 
 //const child_process=require("child_process");
 //console.log(process.argv.slice(2));
-const child_process=require("child_process");
-child_process.exec('node fs.js',function(err,stdout,stderr){
-    if(!err){
-      console.log("stdout" + stdout);
-    }else{
-      console.log("error");
-    }
-  });
+// const child_process=require("child_process");
+// child_process.exec('node fs.js',function(err,stdout,stderr){
+//     if(!err){
+//       console.log("stdout" + stdout);
+//     }else{
+//       console.log("error");
+//     }
+//   });
+
+
+//console.log(process.argv);
+
+// var yargs=require('yargs');
+// console.log(yargs.argv);
+// var parametrosYargs=  yargs.argv
+// //sin yargs
+// var parametros=process.argv.slice(2);
+// console.log(parametros);
+// //con yargs
+// // parametrosYargs= yargs(process.argv.slice(2)).argv;
+// //console.log(parametrosYargs);
+
+
+
+// var http = require('http');
+// http.createServer(function (request, response) {
+//   response.writeHead(200, {'Content-Type': 'text/plain'});
+//   response.end('Hello World');
+// }).listen(parametrosYargs.port);
+
+// console.log('Server running at ' + parametrosYargs.port);
+
+
+// require('yargs')
+//   .scriptName("pirate-parser")
+//   .usage('$0 <cmd> [args]')
+//   .command('hello [name]', 'welcome ter yargs!', (yargs) => {
+//     yargs.positional('name', {
+//       type: 'string',
+//       default: 'Cambi',
+//       describe: 'the name to say hello to'
+//     })
+//   }, function (argv) {
+//     console.log('hello', argv.name, 'welcome to yargs!')
+//   })
+//   .help()
+//   .argv
+
+//yargs.help();
+
+// var yargs=require('yargs');
+// var chalk=require('chalk');
+
+// yargs.command({
+//   command:'login',
+//   describe:'acceder mediante usaurio y contraseña',
+
+//   builder:{
+//       usuario:{
+//         describe:'nombre del usuario',
+//         demandOption:true,
+//         default:'Ingrese su usuario',
+//         type:'String'
+//       },
+//       password:{
+//         describe:'contraseña',
+//         demandOption:true,
+//         default:'ingrese su contraseña',
+//         type:'string'
+//       }
+//   },
+
+//   handler:function(argv){
+//       console.log(argv); //sólo muestra los parámetros
+//       validarLogin(argv.usuario,argv.password);
+//   }
+// });
+
+// function validarLogin(user,pass) {  
+//   if(user=='denis' && pass=='12345'){
+//     console.log(chalk.green.inverse('usuario logueado con éxito'));
+//   }else{
+//     console.log(chalk.red.inverse('error al ingresar usuario o contraseña'));
+//   }
+// }
+
+// yargs.parse();
+
+// AXIOS
+
+var axios=require('axios');
+
+async function obtenerPikachu(){
+  let respuesta=await axios.get("https://pokeapi.co/api/v2/pokemon/ditto");  
+  console.log(respuesta);
+}
+
+obtenerPikachu();
