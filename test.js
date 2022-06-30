@@ -219,11 +219,119 @@
 
 // AXIOS
 
-var axios=require('axios');
+//var axios=require('axios');
 
-async function obtenerPikachu(){
-  let respuesta=await axios.get("https://pokeapi.co/api/v2/pokemon/ditto");  
-  console.log(respuesta);
+// async function obtenerPikachu(){
+//   let respuesta=await axios.get("https://pokeapi.co/api/v2/pokemon/25");  
+//   let datos=respuesta.data;
+//   console.log(datos.name);
+
+// }
+
+//  obtenerPikachu();
+
+// const fetch=require('node-fetch');
+// async function obtenerPikachu(){
+//   let respuesta= await fetch('https://pokeapi.co/api/v2/pokemon/25',{
+//     method:'GET'
+//   });
+//   let datos= await respuesta.json();
+
+//   console.log(datos.name);
+// }
+// obtenerPikachu();
+//var axios=require('axios');
+// axios({
+//   method: 'get',
+//   url: 'https://pokeapi.co/api/v2/pokemon/25',
+//   responseType: 'json'
+// })
+//   .then(function (response) {
+//     console.log(response.data.name);
+//   });
+
+// var axios=require('axios').default;
+
+// let usuario = {
+//   name:'denis',
+//   email:'pachinx@gmail.com'
+// }
+
+// async function crearUsuario(){
+//   let respuesta=await axios.post('https://reqres.in/api/users',usuario);
+//   console.log("código:" + respuesta.status);
+//   console.log("estado:" + respuesta.statusText);
+//   if(respuesta.status==201){
+//     console.log("datos:");
+//     console.log(respuesta.data);
+//   }else{
+//     console.log("error al buscar datos");
+//   }
+  
+// }
+
+// //crearUsuario();
+// async function coneccionFalsa(){
+//   try{
+//     let respuesta= await axios.get('https://direccionfalsa.com/password');
+//   console.log(respuesta.status);
+//   console.log(respuesta.data); 
+//   }catch(err){
+//     console.log(err.message);
+//   }finally{
+//     console.log("fin");
+//   }
+// }
+//  coneccionFalsa();
+
+
+var jimp=require('jimp');
+
+async function modificarImagen(){
+ let imagen= await jimp.read("https://i.pinimg.com/originals/81/3e/56/813e5649cbdcf60531effccae407397f.jpg");
+ imagen.greyscale().getBuffer(jimp.MIME_JPEG,function(err,buffer){
+  if(err){
+    console.log(err.message);
+  }else{
+    imagen.writeAsync("imagen.jpg");
+  }
+ })
+ 
 }
 
-obtenerPikachu();
+modificarImagen();
+
+var http = require('http');
+var fs=require('fs');
+http.createServer(function (request, response) {  
+  fs.readFile('imagen.jpg',function(err,data){
+    if(err){
+      response.writeHead(404, {'Content-Type': 'text/plain'});
+      response.write("error");
+      response.end();
+    }else{
+      response.writeHead(404, {'Content-Type': 'image/jpg'});
+      response.write(data);
+      response.end();
+    }
+  })
+
+}).listen(8081);
+
+console.log('Server running at http://127.0.0.1:8081/');
+
+
+
+// jimp.read("https://i.pinimg.com/originals/81/3e/56/813e5649cbdcf60531effccae407397f.jpg")
+//   .then(image => {
+//     image.greyscale().getBuffer(jimp.MIME_JPEG, onBuffer);
+//     image.writeAsync('imagen.jpg');
+//   })
+//   .catch(error => {
+//     console.error(error);
+//   });
+
+// function onBuffer(err, buffer) {
+//   if (err) throw err;
+//   console.log(buffer);
+// }
