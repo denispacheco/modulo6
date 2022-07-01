@@ -285,53 +285,104 @@
 //  coneccionFalsa();
 
 
-var jimp=require('jimp');
+// var jimp=require('jimp');
 
-async function modificarImagen(){
- let imagen= await jimp.read("https://i.pinimg.com/originals/81/3e/56/813e5649cbdcf60531effccae407397f.jpg");
- imagen.greyscale().getBuffer(jimp.MIME_JPEG,function(err,buffer){
-  if(err){
-    console.log(err.message);
-  }else{
-    imagen.writeAsync("imagen.jpg");
-  }
- })
+// async function modificarImagen(){
+//  let imagen= await jimp.read("https://i.pinimg.com/originals/81/3e/56/813e5649cbdcf60531effccae407397f.jpg");
+//  imagen.greyscale().getBuffer(jimp.MIME_JPEG,function(err,buffer){
+//   if(err){
+//     console.log(err.message);
+//   }else{
+//     imagen.writeAsync("imagen.jpg");
+//   }
+//  })
  
-}
-
-modificarImagen();
-
-var http = require('http');
-var fs=require('fs');
-http.createServer(function (request, response) {  
-  fs.readFile('imagen.jpg',function(err,data){
-    if(err){
-      response.writeHead(404, {'Content-Type': 'text/plain'});
-      response.write("error");
-      response.end();
-    }else{
-      response.writeHead(404, {'Content-Type': 'image/jpg'});
-      response.write(data);
-      response.end();
-    }
-  })
-
-}).listen(8081);
-
-console.log('Server running at http://127.0.0.1:8081/');
-
-
-
-// jimp.read("https://i.pinimg.com/originals/81/3e/56/813e5649cbdcf60531effccae407397f.jpg")
-//   .then(image => {
-//     image.greyscale().getBuffer(jimp.MIME_JPEG, onBuffer);
-//     image.writeAsync('imagen.jpg');
-//   })
-//   .catch(error => {
-//     console.error(error);
-//   });
-
-// function onBuffer(err, buffer) {
-//   if (err) throw err;
-//   console.log(buffer);
 // }
+
+// modificarImagen();
+
+// var http = require('http');
+// var fs=require('fs');
+// http.createServer(function (request, response) {  
+//   fs.readFile('imagen.jpg',function(err,data){
+//     if(err){
+//       response.writeHead(404, {'Content-Type': 'text/plain'});
+//       response.write("error");
+//       response.end();
+//     }else{
+//       response.writeHead(404, {'Content-Type': 'image/jpg'});
+//       response.write(data);
+//       response.end();
+//     }
+//   })
+
+// }).listen(8081);
+
+// console.log('Server running at http://127.0.0.1:8081/');
+
+
+
+// // jimp.read("https://i.pinimg.com/originals/81/3e/56/813e5649cbdcf60531effccae407397f.jpg")
+// //   .then(image => {
+// //     image.greyscale().getBuffer(jimp.MIME_JPEG, onBuffer);
+// //     image.writeAsync('imagen.jpg');
+// //   })
+// //   .catch(error => {
+// //     console.error(error);
+// //   });
+
+// // function onBuffer(err, buffer) {
+// //   if (err) throw err;
+// //   console.log(buffer);
+// // }
+
+
+
+//const { response } = require('express');
+var express=require('express');
+const app=express();
+const puerto=8081
+
+// app.get('/',(req,resp)=>{
+//   resp.send("Hola!")
+// });
+// app.listen(puerto,function(){
+//   console.log("escuchando en el puerto "+ puerto);
+// })
+
+// app.get('/autor/:idautor/libro/:idlibro',function(req,res){
+//   res.send(req.params);
+// })
+// app.listen(8081,function(){
+//   console.log("escuchando en el puerto 8081");
+// })
+
+// app.route('/libro')
+//   .get((req, res) => {
+//     res.send('libro enviado')
+//   })
+//   .post((req, res) => {
+//     res.send('libro agregado')
+//   })
+//   .put((req, res) => {
+//     res.send('libro actualizado')
+//   })
+//   app.listen(8081,function(){
+//      console.log("escuchando en el puerto 8081");
+//    })
+// app.use(express.static('public'));
+
+// app.get("/",function(req,res){
+//   res.send('<img src=img/foto.jpg />');  
+// })
+// app.listen(8081);
+app.use(express.json());
+app.post("/",function(req,res){
+  console.log(req.body);
+  res.send("OK");
+})
+
+app.get("/",function(req,res){
+  res.send("GET");
+})
+app.listen(8081);
