@@ -8,8 +8,8 @@ const app=express();
 //traer todos los autores
 app.get("/autores",function (req,res) {
     fs.readdir("libros/",function(err,archivos){
-        //let nombres=archivos.map(l=>l.split("-")[1]);
-
+        let nombres=archivos.map(l=>l.split("-")[1]);
+        /*alternativa  sin map (usando for)
         let nombres=[];
         let codigos=[];
         for(i=0;i<archivos.length;i++){
@@ -17,6 +17,7 @@ app.get("/autores",function (req,res) {
             codigos.push(datos[0]);
             nombres.push(datos[1]);
         }
+        */
         res.json(nombres);
     })
     

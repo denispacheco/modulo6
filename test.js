@@ -376,13 +376,75 @@ const puerto=8081
 //   res.send('<img src=img/foto.jpg />');  
 // })
 // app.listen(8081);
-app.use(express.json());
-app.post("/",function(req,res){
+// app.use(express.json());
+// app.post("/",function(req,res){
+//   console.log(req.body);
+//   res.send("OK");
+// })
+
+// app.get("/",function(req,res){
+//   res.send("GET");
+// })
+// app.listen(8081);
+
+
+app.use(express.static('public'));
+
+
+var revision = function(req,res,next){
+  let num1=req.query.numero1;
+  let num2=req.query.numero2;
+  console.log("middleware");
+  console.log(num1,"-",num2);
+if(!Number(num1) || !Number(num2)){
+  res.send("Error en los datos!");
+}else{
+  next();
+}
+
+}
+app.use('/html/calcular',revision);
+app.get('/html/calcular',function(req,res){
+  //console.log(req.query);
+  let num1=req.query.numero1;
+  let num2=req.query.numero2;
+  res.send("resultado:" + Number(num1)*Number(num2));
+})
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: false }));
+app.post('/html/calcular',function(req,res){
+  console.log(req.query);
   console.log(req.body);
+  let num1=req.body.numero1;
+  let num2=req.body.numero2;
+  res.send("resultado:" + Number(num1)*Number(num2));
+})
+
+var fs = require('fs');
+const moment = require('moment');
+app.get('/html/moment',function(req,res){
+  
+  var texto= fs.readFileSync('public/html/moment.html');
+  moment.locale('es');
+  texto=texto.toString().replace("Fecha:","Fecha:"+ moment().format("dddd D MMMM  YYYY"))
+  texto=texto.toString().replace("Hora:","Hora:"+ moment().format("h:mm:ss a"))
+  res.send(texto);  
+})
+
+
+var funcionLog= function(req,res,next){
+  console.log("solicitud recibida:" + moment().toDate());
+  console.log("método:" + req.method);
+  console.log("url:"+req.url);
+  next();
+}
+app.use("/middle",funcionLog);
+app.get('/middle',function(req,res){
+ 
   res.send("OK");
 })
 
-app.get("/",function(req,res){
-  res.send("GET");
-})
+
+
+
 app.listen(8081);
